@@ -1,0 +1,47 @@
+@rowColor:rgb(187, 187, 187);
+
+.table-position {
+    border-spacing:0;
+    margin: auto;
+    margin-top: 50px;
+}
+.notes-table{
+    .table-position();
+    .notes-table__row{
+        background-color: @rowColor;
+        .notes-table__item{
+            padding: 3px 10px;
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            button{
+
+            }
+        }
+    }
+}
+.summary-table{
+    .table-position();
+    .summary-table__row{
+        background-color: @rowColor;
+        .summary-table__item{
+            padding: 3px 10px;
+        }
+    }
+}
+.edit-form__wrapper {
+    margin: 30px auto;
+    form{
+        text-align: center;
+    }
+
+}
+.create-button__wrapper{
+    width: 75%;
+    display: flex;
+    justify-content: flex-end;
+}
+th{
+    text-align: start;
+}
+
