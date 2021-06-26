@@ -1,0 +1,41 @@
+.table-position {
+  border-spacing: 0;
+  margin: auto;
+  margin-top: 50px;
+}
+.notes-table {
+  border-spacing: 0;
+  margin: auto;
+  margin-top: 50px;
+}
+.notes-table .notes-table__row {
+  background-color: #bbbbbb;
+}
+.notes-table .notes-table__row .notes-table__item {
+  padding: 3px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.summary-table {
+  border-spacing: 0;
+  margin: auto;
+  margin-top: 50px;
+}
+.summary-table .summary-table__row {
+  background-color: #bbbbbb;
+}
+.summary-table .summary-table__row .summary-table__item {
+  padding: 3px 10px;
+}
+.edit-form__wrapper {
+  margin: 30px auto;
+}
+.edit-form__wrapper form {
+  text-align: center;
+}
+.create-button__wrapper {
+  width: 75%;
+  display: flex;
+  justify-content: flex-end;
+}
