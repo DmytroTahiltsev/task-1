@@ -25,3 +25,4 @@ function createForm(options){
     return form
 
 }
+export {createForm}

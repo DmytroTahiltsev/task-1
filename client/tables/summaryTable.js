@@ -21,15 +21,16 @@
 
     for(let elem of category){
         summaryTable.insertAdjacentHTML('beforeend', `
-            <tr class="summary-table__row">
-                <td class="summary-table__item">${elem.name}</td>
-                <td class="summary-table__item">${elem.activeCount}</td>
-                <td class="summary-table__item">${elem.archiveCount}</td>
+            <tr class="table__row">
+                <td class="table__item">${elem.name}</td>
+                <td class="table__item">${elem.activeCount}</td>
+                <td class="table__item">${elem.archiveCount}</td>
             </tr>
         `)
     }
     return summaryTable
 }
+export {createSummaryTable}
 
 
 

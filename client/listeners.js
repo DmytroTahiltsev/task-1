@@ -1,15 +1,32 @@
+import {createEditForm} from './forms/edit-form.js'
+import {createForm} from './forms/create-form.js'
+import {createActiveTable} from './tables/activeTable.js'
+import {createSummaryTable} from './tables/summaryTable.js'
+import {createArchiveTable} from './tables/archiveTable.js'
+import { category, notes } from './data.js'
+
+
 function setListeners(){
     document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', editButtonListener)
+        button.addEventListener('click', (e) => {editButtonListener(e, notes, category)})
     })
     document.querySelectorAll('.archive-button').forEach(button => {
-        button.addEventListener('click', archiveButtonListener)
+        button.addEventListener('click', (e) => {reArchiveButtonListener(e, true)})
+    })
+    document.querySelectorAll('.unarchive-button').forEach(button => {
+        button.addEventListener('click', (e) => {reArchiveButtonListener(e, false)})
     })
     document.querySelectorAll('.remove-button').forEach(button => {
         button.addEventListener('click', removeButtonListener)
     })
 }
-const editButtonListener = (e, notes) => {
+function renderEditedTable(createFunction ,selector, parentSelector, notes, category){
+    const editedTable = createFunction(notes, category)
+    document.querySelector(selector) && document.querySelector(selector).remove()
+    document.querySelector(parentSelector).append(editedTable)
+}
+
+const editButtonListener = (e, notes, category) => {
     const editListener = (e) => {
         e.preventDefault()
         const form = document.forms.edit
@@ -19,8 +36,8 @@ const editButtonListener = (e, notes) => {
         editedNote.content = form.content.value
 
         document.querySelector('.edit-form').remove()
-        renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes)
-        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', category)
+        renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes, category)
+        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', notes, category)
         setListeners()
 
     }
@@ -38,11 +55,12 @@ const editButtonListener = (e, notes) => {
     document.querySelector('.edit-form__submit').addEventListener('click', editListener)
 }
 
-const archiveButtonListener = (e) => {
+const reArchiveButtonListener = (e, bool) => {
     const id = e.target.dataset.id
-    notes.find(item => item.id == id).archived=true
-    renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes)
-    renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', category)
+    notes.find(item => item.id == id).archived=bool
+    renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes, category)
+    renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', notes, category)
+    renderEditedTable(createArchiveTable,'.archive-table', '.archive-table__wrapper', notes, category)
     setListeners()
 }
 
@@ -50,8 +68,8 @@ const removeButtonListener = (e) => {
     const id = e.target.dataset.id
     let removeIndex = notes.findIndex(item => item.id == id)
     notes.splice(removeIndex, 1)
-    renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes)
-    renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', category)
+    renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes, category)
+    renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', notes, category)
     setListeners()
 }
 
@@ -71,8 +89,8 @@ const createButtonListener = (e) => {
         }
         notes.push(newNote)
         renderEditedTable(createActiveTable ,'.notes-table', '.active-table', notes)
-        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', category)
-        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', category)
+        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', notes, category)
+        renderEditedTable(createSummaryTable,'.summary-table', '.summary-table__wrapper', notes, category)
         setListeners()
         form.remove()
     })
@@ -80,3 +98,7 @@ const createButtonListener = (e) => {
         form.remove()
     })
 }
+
+
+
+export {createButtonListener, removeButtonListener, reArchiveButtonListener, editButtonListener}

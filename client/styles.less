@@ -5,11 +5,11 @@
     margin: auto;
     margin-top: 50px;
 }
-.notes-table{
+.notes-table, .summary-table, .archive-table{
     .table-position();
-    .notes-table__row{
+    .table__row{
         background-color: @rowColor;
-        .notes-table__item{
+        .table__item{
             padding: 3px 10px;
             white-space: nowrap; 
             overflow: hidden;
@@ -17,15 +17,6 @@
             button{
 
             }
-        }
-    }
-}
-.summary-table{
-    .table-position();
-    .summary-table__row{
-        background-color: @rowColor;
-        .summary-table__item{
-            padding: 3px 10px;
         }
     }
 }
@@ -40,6 +31,7 @@
     width: 75%;
     display: flex;
     justify-content: flex-end;
+    margin: 10px;
 }
 th{
     text-align: start;

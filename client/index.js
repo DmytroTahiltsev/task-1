@@ -1,41 +1,19 @@
-import {createEditForm} from './edit-form.js'
+import {createButtonListener, removeButtonListener, reArchiveButtonListener, editButtonListener} from './listeners.js'
+import {createActiveTable} from './tables/activeTable.js'
+import {createSummaryTable} from './tables/summaryTable.js'
+import {createArchiveTable} from './tables/archiveTable.js'
+import { category, notes } from './data.js'
 
 
-function renderEditedTable(createFunction ,selector, parentSelector, data){
-    const editedTable = createFunction(data)
-    document.querySelector(selector) && document.querySelector(selector).remove()
-    document.querySelector(parentSelector).append(editedTable)
-}
-
-
-
-
-const category = [
-    {name: 'Task', activeCount: 0, archiveCount: 0},
-    {name:'Random Thought', activeCount: 0, archiveCount: 0},
-    {name:'Idea', activeCount: 0, archiveCount: 0}
-]
-let notes = [
-    {id: 1, name: 'Shopping list', created: new Date(2021, 3, 21), category: category[0], content: 'Tomatoes, bread', archived: false},
-    {id: 2, name: 'The theory of evolution', created: new Date(2021, 3, 27), category: category[1], content: 'The evolution is good thing', archived: false},
-    {id: 3, name: 'New Feature', created: new Date(2021, 4, 5), category: category[2], content: 'Implement new feature 3/5/2021 to 5/5/2021', archived: false},
-    {id: 4, name: 'William Gaddis', created: new Date(2021, 4, 7), category: category[2], content: 'Power doesnt context', archived: false},
-    {id: 5, name: 'Books', created: new Date(2021, 4, 15), category: category[0], content: 'The Lean Startup', archived: false},
-    {id: 6, name: 'Note 6', created: new Date(2021, 4, 30), category: category[0], content: 'Note 6 content', archived: false},
-    {id: 7, name: 'Note 7', created: new Date(2021, 5, 2), category: category[1], content: 'Note 7 content', archived: true},
-]
-console.log(notes)
 const activeTable = createActiveTable(notes)
 const summaryTable = createSummaryTable(notes, category)
-
-
-
+const archiveTable = createArchiveTable(notes)
 document.querySelector('.active-table').append(activeTable)
 document.querySelector('.summary-table__wrapper').append(summaryTable)
-
+document.querySelector('.archive-table__wrapper').append(archiveTable)
 
 document.querySelectorAll('.edit-button').forEach(button => {
-    button.addEventListener('click', (e) => {editButtonListener(e, notes)})    
+    button.addEventListener('click', (e) => {editButtonListener(e, notes, category)})    
 })
 
 document.querySelectorAll('.remove-button').forEach(button => {
@@ -43,9 +21,15 @@ document.querySelectorAll('.remove-button').forEach(button => {
 })
 
 document.querySelectorAll('.archive-button').forEach(button => {
-    button.addEventListener('click', archiveButtonListener)    
+    button.addEventListener('click', (e) => {reArchiveButtonListener(e, true)})    
 })
+
+document.querySelectorAll('.unarchive-button').forEach(button => {
+    button.addEventListener('click', (e) => {reArchiveButtonListener(e, false)})    
+})
+
 document.querySelector('.create-button').addEventListener('click', createButtonListener)
+
 
 
 

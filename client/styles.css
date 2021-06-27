@@ -3,30 +3,25 @@
   margin: auto;
   margin-top: 50px;
 }
-.notes-table {
+.notes-table,
+.summary-table,
+.archive-table {
   border-spacing: 0;
   margin: auto;
   margin-top: 50px;
 }
-.notes-table .notes-table__row {
+.notes-table .table__row,
+.summary-table .table__row,
+.archive-table .table__row {
   background-color: #bbbbbb;
 }
-.notes-table .notes-table__row .notes-table__item {
+.notes-table .table__row .table__item,
+.summary-table .table__row .table__item,
+.archive-table .table__row .table__item {
   padding: 3px 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.summary-table {
-  border-spacing: 0;
-  margin: auto;
-  margin-top: 50px;
-}
-.summary-table .summary-table__row {
-  background-color: #bbbbbb;
-}
-.summary-table .summary-table__row .summary-table__item {
-  padding: 3px 10px;
 }
 .edit-form__wrapper {
   margin: 30px auto;
@@ -38,6 +33,7 @@
   width: 75%;
   display: flex;
   justify-content: flex-end;
+  margin: 10px;
 }
 th {
   text-align: start;
