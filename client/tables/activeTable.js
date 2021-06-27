@@ -4,23 +4,29 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 function createActiveTable(notes, category){
     function getDates(str){
-        const regexp1 = /\s[1-9]\/[1-9]\/\d\d\d\d/
-        const regexp2 = /\s[0][1-9]\/[1-9]\/\d\d\d\d/
-        const regexp3 = /\s[1-3][0-9]\/[1-9]\/\d\d\d\d/
-        const regexp4 = /\s[1-9]\/[0][1-9]\/\d\d\d\d/
-        const regexp5 = /\s[0][1-9]\/[0][1-9]\/\d\d\d\d/
-        const regexp6 = /\s[1-3][0-9]\/0[1-9]\/\d\d\d\d/
-        const regexp7 = /\s[1-9]\/[1][0-2]\/\d\d\d\d/
-        const regexp8 = /\s[0][1-9]\/[1][0-2]\/\d\d\d\d/
-        const regexp9 = /\s[1-3][0-9]\/[1][0-2]\/\d\d\d\d/
+        const regExpArray = [
+            /\s[1-9]\/[1-9]\/\d\d\d\d/,
+            /\s[0][1-9]\/[1-9]\/\d\d\d\d/,
+            /\s[1-3][0-9]\/[1-9]\/\d\d\d\d/,
+            /\s[1-9]\/[0][1-9]\/\d\d\d\d/,
+            /\s[0][1-9]\/[0][1-9]\/\d\d\d\d/,
+            /\s[1-3][0-9]\/0[1-9]\/\d\d\d\d/,
+            /\s[1-9]\/[1][0-2]\/\d\d\d\d/,
+            /\s[0][1-9]\/[1][0-2]\/\d\d\d\d/,
+            /\s[1-3][0-9]\/[1][0-2]\/\d\d\d\d/
+        ]
 
         let dates =[]
         let i = 0
-        let result = str.match(regexp1) || str.match(regexp2) || str.match(regexp3) || str.match(regexp4) || str.match(regexp5) || str.match(regexp6) || str.match(regexp7) || str.match(regexp8) || str.match(regexp9)
+        let result = regExpArray.reduce((prev, item) =>{
+            return prev || str.match(item)
+        }, null)
         while(result){
             dates.push(result)
             str = str.slice(result.index + result.length)
-            result = str.match(regexp1) || str.match(regexp2) || str.match(regexp3) || str.match(regexp4) || str.match(regexp5) || str.match(regexp6) || str.match(regexp7) || str.match(regexp8) || str.match(regexp9)
+            result = regExpArray.reduce((prev, item) =>{
+                return prev || str.match(item)
+            }, null)
         }
 
         return dates.join(',')
